@@ -1,0 +1,109 @@
+/* =============================================================================
+   custom.css — Wu AI Harness
+   Purpose: Visual polish on top of shinydashboard (AdminLTE / Bootstrap 3)
+   ============================================================================= */
+
+/* --- CSS custom properties -------------------------------------------------- */
+:root {
+  --wu-blue:        #3c8dbc;   /* shinydashboard primary blue */
+  --wu-blue-dark:   #2c6e93;
+  --wu-teal:        #00a65a;
+  --wu-border:      #d2d6de;
+  --wu-bg-muted:    #f4f6f9;
+  --wu-text-muted:  #777;
+}
+
+/* --- Sidebar brand feel ----------------------------------------------------- */
+.main-header .logo {
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  font-size: 16px;
+}
+
+.skin-blue .main-header .logo {
+  background-color: var(--wu-blue-dark);
+}
+
+.skin-blue .main-header .navbar {
+  background-color: var(--wu-blue);
+}
+
+/* --- Value box typography --------------------------------------------------- */
+.info-box-text,
+.small-box .inner h3 {
+  font-weight: 700;
+}
+
+.small-box p {
+  font-size: 0.95em;
+  opacity: 0.9;
+}
+
+/* --- Box header consistency ------------------------------------------------- */
+.box.box-primary > .box-header {
+  background-color: var(--wu-blue);
+  color: #fff;
+}
+
+.box.box-info > .box-header {
+  background-color: #00c0ef;
+  color: #fff;
+}
+
+/* --- Study info table ------------------------------------------------------- */
+.study-table {
+  font-size: 0.9em;
+  margin-bottom: 0;
+}
+
+.study-table thead th {
+  background-color: var(--wu-bg-muted);
+  font-weight: 600;
+  color: #444;
+  border-bottom: 2px solid var(--wu-border);
+}
+
+.study-table tbody td {
+  vertical-align: middle;
+}
+
+/* --- DT table tweaks -------------------------------------------------------- */
+/* Tighten the filter row inputs */
+.dataTables_wrapper .form-control {
+  font-size: 0.82em;
+  padding: 3px 6px;
+  height: 28px;
+}
+
+/* Slightly smaller table font for dense clinical listings */
+#tbl_dm table.dataTable {
+  font-size: 0.85em;
+}
+
+/* Buttons */
+.dt-buttons .btn {
+  font-size: 0.82em;
+  padding: 4px 10px;
+  margin-right: 2px;
+  border-radius: 3px;
+}
+
+/* --- Footer strip ----------------------------------------------------------- */
+.main-footer {
+  font-size: 0.8em;
+  color: var(--wu-text-muted);
+}
+
+/* --- Home page list styling ------------------------------------------------- */
+.box ul li,
+.box ol li {
+  margin-bottom: 4px;
+  line-height: 1.6;
+}
+
+/* --- Responsive: hide sidebar text on small screens ----------------------- */
+@media (max-width: 768px) {
+  .main-header .logo {
+    font-size: 13px;
+  }
+}
