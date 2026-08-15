@@ -1,0 +1,280 @@
+
+
+### Overview
+
+Wu Consulting plans to develop an AI harness to supplement its staff agumentation business in clinical research.  Currently, consultants are deployed to develop SAS/R code for CDISC submissions.  This is a time consuming process.  A typical FDA submission may include several dozen domains across SDTM and ADaM and additional TFLs and listings are required.  Some of this work can be automated through standardized macros and adapting existing programs, but programming remains a labor instensive process and takes significant time.
+
+Incorporating AI tools into the development process could provide Wu Consulting with a competetive edge with their clients.  Our team could develop code faster and potentially produce better results if more effort could be focused on quality and validation rather than line-by-line coding.
+
+When people use an AI system, they are interacting with a traditional software product that harnesses an LLM core and associated support structures.  Developing this harness for our consultants would give them a custom toolkit for developing CDISC workflows and accelerate their productivity.  The company needs to develop this system and train its consultants on its use.  Much of the harness is already developed, but it could benefit from the extensive experience of our consultants before it is deployed in a work environment.
+
+Our consultants currently do not have much AI experience.  I propose delivering a training in Claude Code to a select group of consultants.  Once they are proficient with the basic Claude Code tools, they can assist me in refining the harness to our specific needs.
+
+### Requirements
+
+Claude Code is a command line tool that is platform independent.  Our consultants can install it on Windows, MacOS, or Linux at their discretion.  However, there are certain dependencies they will need prior to the training.
+
+#### Development IDE
+
+For this training, we will be using the Positron IDE, a VSCode clone specificly adapted to data science.  Positron is available for MacOS, Windows, and Linux and is a free download from Posit.  Participants can find it at the link below.  The remaining setup process will be through the TERMINAL section of Positron.
+
+https://positron.posit.co/download.html
+
+#### Claude Code
+
+Claude Code is a command line tool that is accessed through the TERMINAL section in Positron.  Participants can download it through a set of commands.
+
+**Windows**
+
+Open PowerShell in Positron's terminal and run the following commands. The first installs Node.js (which includes npm, required by Claude Code). Close and reopen the terminal after the Node.js install before running the second command.
+
+```powershell
+# Step 1 — Install Node.js LTS (includes npm)
+winget install -e --id OpenJS.NodeJS.LTS
+
+# Step 2 — Close and reopen the terminal, then install Claude Code
+npm install -g @anthropic-ai/claude-code
+```
+
+**MacOS/Linux**
+
+Open the bash terminal in Positron and run the following commands.
+
+*macOS:*
+
+```bash
+# Step 1 — Install Homebrew (skip if already installed)
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+# Step 2 — Install Node.js LTS (includes npm)
+brew install node
+
+# Step 3 — Install Claude Code
+npm install -g @anthropic-ai/claude-code
+```
+
+*Linux (Ubuntu/Debian):*
+
+```bash
+# Step 1 — Install Node.js LTS via NodeSource
+curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
+# Step 2 — Install Claude Code
+npm install -g @anthropic-ai/claude-code
+```
+
+Once installed, users will need to login to their Anthropic account or access the models with an enterprise API key.  An Anthropic subscription is the most cost effective option and plans start at $25 a month and include hourly/daily/weekly limits.  API access is unlimited and billed by the token.
+
+#### npm
+
+The focus of this training will be to develop a full stack application and users will need to install a Javascript package manager on their system. npm is installed automatically with Node.js in the Claude Code setup above. The commands below install the additional tools needed to write and run TypeScript.
+
+**Windows (PowerShell):**
+
+```powershell
+# Install the TypeScript compiler
+npm install -g typescript
+
+# Install ts-node (runs TypeScript files directly without a manual compile step)
+npm install -g ts-node
+
+# Verify both are installed
+tsc --version
+ts-node --version
+```
+
+**MacOS/Linux (bash):**
+
+```bash
+# Install the TypeScript compiler
+npm install -g typescript
+
+# Install ts-node (runs TypeScript files directly without a manual compile step)
+npm install -g ts-node
+
+# Verify both are installed
+tsc --version
+ts-node --version
+```
+
+#### Github
+
+Consultants will need to access training materials through Github.  Github is a free online code repository that developers access to maintain their code.  It works like Track Changes for code development, every commit is tracked and users can look at their history to see every change and update they make over the lifecycle of a project and collaborate on projects.  I will develop a custom Github repository for the course and share it with the group.  The participants must create a Github account and configure it on their computers if they don't already have it.
+
+1. Create a free account at [https://github.com](https://github.com) if you do not already have one.
+
+2. Install Git on your computer.
+
+   *Windows (PowerShell):*
+   ```powershell
+   winget install -e --id Git.Git
+   ```
+
+   *macOS (bash):*
+   ```bash
+   brew install git
+   ```
+
+   *Linux (bash):*
+   ```bash
+   sudo apt-get install -y git
+   ```
+
+3. Configure Git with your name and the email address associated with your GitHub account. Run these in the Positron terminal:
+
+   ```bash
+   git config --global user.name "Your Name"
+   git config --global user.email "you@example.com"
+   ```
+
+4. Generate an SSH key so your computer can authenticate to GitHub without a password. Run the command below, replacing the email with the one on your GitHub account. Press **Enter** to accept the default file location, then choose a passphrase (or press Enter twice to leave it blank).
+
+   ```bash
+   ssh-keygen -t ed25519 -C "you@example.com"
+   ```
+
+5. Copy your public key to the clipboard.
+
+   *Windows (PowerShell):*
+   ```powershell
+   Get-Content "$env:USERPROFILE\.ssh\id_ed25519.pub" | Set-Clipboard
+   ```
+
+   *macOS (bash):*
+   ```bash
+   pbcopy < ~/.ssh/id_ed25519.pub
+   ```
+
+   *Linux (bash):*
+   ```bash
+   cat ~/.ssh/id_ed25519.pub
+   # Manually select and copy the output
+   ```
+
+6. Add the key to GitHub:
+   - Go to **github.com → Settings → SSH and GPG keys → New SSH key**
+   - Give it a descriptive title (e.g., "Positron laptop")
+   - Paste the key into the **Key** field and click **Add SSH key**
+
+7. Test the connection:
+
+   ```bash
+   ssh -T git@github.com
+   ```
+
+   You should see: `Hi <username>! You've successfully authenticated...`
+
+8. You will receive an invitation link to the course repository. Accept it, then clone the repository to your local machine using the SSH URL:
+
+   ```bash
+   git clone git@github.com:<repo-url-provided-by-instructor>.git
+   ```
+
+
+
+### Course Outline
+
+#### Day 1 — Orientation: What Claude Code Is and How to Think About It
+
+- **VSCode/Positron Setup**
+  - Configuring settings - Shift-Command-P or Shift-Control-P to access settings and tools
+  - Extensions - 
+  - Projects and directories
+  - Git integration
+
+- **The mental model** (~10 min)
+  - Claude is a collaborator, not a search engine — it reads your files and writes code alongside you
+  - The context window: what Claude "sees" when you submit a prompt (open files, terminal output, conversation history)
+    - `/context`, `/compact`, `/clear`
+  - Models /effort and when to use them: Haiku (fast, cheap), Sonnet (balanced, default), Opus (complex reasoning), Fable (when you want to burn through money)
+    `/models` `/effort medium/high`
+
+- **Tour of the interface** (~15 min)
+  - Starting Claude Code in the Positron terminal 
+    - `claude`, `claude --dangerously-skip-permissions`
+  - Alternative using the VSCode extension
+  - Basic commands: asking questions, requesting file edits, running shell commands
+  - How Claude reads and writes files in your working directory
+
+- **Writing effective prompts** (~15 min)
+  - Be specific: include file names, variable names, and expected behavior
+  - Provide context: tell Claude what the code is supposed to do, not just what is broken
+  - Iterate: treat the first response as a draft, not a final answer
+
+- **Hands-on exercise** (~20 min)
+  - Clone the course repository from GitHub
+  - Ask Claude to explain the starter TypeScript file in plain English
+  - Ask Claude to make a small, well-defined change and review the diff
+
+---
+
+#### Day 2 — Project Structure and Persistent Context
+
+- **How Claude Code sees a project** (~10 min)
+  - The working directory as Claude's workspace
+  - `CLAUDE.md`: the project instruction file — what it is and why it matters
+  - The `.claude/` directory: rules, skills, memory, and agent definitions
+
+- **Giving Claude permanent context** (~15 min)
+  - Writing a `CLAUDE.md` for a project: conventions, file layout, do-not-touch rules
+  - Rules files: domain-specific constraints Claude will follow automatically
+  - Memory files: facts that persist across sessions
+
+- **Basic git workflow with Claude** (~15 min)
+  - Asking Claude to commit completed work (conventional commit format)
+  - Reviewing what Claude staged before committing
+  - The rule: Claude commits locally, humans decide when to push
+
+- **Hands-on exercise** (~20 min)
+  - Write a `CLAUDE.md` for the TypeScript project together as a group
+  - Ask Claude to scaffold a second TypeScript module following the conventions just defined
+  - Commit the result with Claude and inspect the git log
+
+---
+
+#### Day 3 — Building and Debugging with Claude
+
+- **Planning before coding** (~10 min)
+  - Ask Claude to generate a written plan before any code is written
+  - A good plan includes: purpose, inputs/outputs, file layout, acceptance criteria
+  - Review the plan and correct it — this is cheaper than correcting code
+
+- **Iterative development** (~15 min)
+  - Prompt → review → refine as the core loop
+  - Reading Claude's output critically: does it match the plan? does it introduce risk?
+  - When to break a task into smaller steps vs. ask for the whole thing at once
+
+- **Debugging with Claude** (~15 min)
+  - Paste error messages directly into the prompt with surrounding context
+  - Ask Claude to explain the error before asking it to fix it — builds understanding
+  - If a fix doesn't work: describe what you tried, what you expected, and what actually happened
+
+- **Hands-on exercise** (~20 min)
+  - Using the plan-first approach, add a feature to the TypeScript application
+  - Intentionally introduce a bug and practice the debugging loop with Claude
+  - Discuss as a group: where did Claude help most, where did it need correction?
+
+---
+
+#### Day 4 — CDISC Workflows and the Wu AI Harness
+
+- **Applying Claude Code to clinical programming** (~10 min)
+  - What Claude knows about CDISC out of the box (and its limitations)
+  - The validation mindset: Claude produces a first draft, the programmer owns correctness
+  - What kinds of tasks benefit most: boilerplate, transformation logic, QC checks, listings
+
+- **Introduction to the Wu AI harness** (~15 min)
+  - What the harness adds on top of base Claude Code: custom rules, skills, RAG search
+  - How domain-specific rules (SDTM, ADaM, pharmaRTF) are injected as project context
+  - Live demo: ask the harness to generate a starter SDTM domain transformation
+
+- **Quality and review workflow** (~15 min)
+  - Never ship Claude output without a human review pass
+  - Specific things to verify: variable names, controlled terminology, date formats, missingness handling
+  - Using Claude to write the QC check for its own output
+
+- **Hands-on exercise and wrap-up** (~20 min)
+  - Ask the harness a CDISC question relevant to your own domain experience
+  - Identify one gap or rough edge in the harness and document it in a GitHub issue
+  - Discussion: how would you incorporate this into your current project workflow?

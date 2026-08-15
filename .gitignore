@@ -1,0 +1,19 @@
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Quarto rendered output
+*_files/
+*.html
+!docs/*.html
+
+# VS Code local config (contains local file paths)
+.vscode/.mcp.json
+
+# Claude Code local config
+.claude/
+
+# Python
+__pycache__/
+*.pyc
+.venv/

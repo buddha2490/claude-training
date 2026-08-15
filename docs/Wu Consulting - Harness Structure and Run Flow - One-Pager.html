@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Wu Consulting — Harness Structure and Run Flow</title>
+  <style>
+    :root{--ink:#12222e;--muted:#53646e;--line:#d7dfe4;--blue:#1f5f8b;--soft:#eef4f8;--band:#f6f8f9;--warn:#9a6415}
+    *{box-sizing:border-box}body{margin:0;background:#e9edf0;color:var(--ink);font:13.5px/1.4 "Iowan Old Style",Palatino,Georgia,serif;-webkit-font-smoothing:antialiased}
+    .sheet{max-width:980px;margin:28px auto;background:#fff;padding:42px 52px;box-shadow:0 2px 18px #12222e20}
+    header{border-bottom:2px solid var(--ink);padding-bottom:13px;margin-bottom:14px}
+    .eyebrow,h2,h3,h4,th,footer{font-family:"Helvetica Neue",Arial,sans-serif}
+    .eyebrow{margin:0 0 7px;color:var(--blue);font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase}
+    h1{font-size:27px;line-height:1.08;letter-spacing:-.015em;margin:0 0 7px;font-weight:600}
+    .sub{margin:0;color:var(--muted);font-size:14.5px;max-width:80ch}p{margin:0 0 8px}
+    h2{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;margin:16px 0 8px;padding-bottom:4px;border-bottom:1px solid var(--line)}
+    h3{font-size:12.5px;color:var(--blue);margin:0 0 4px}
+    .lede{font-size:14.5px}
+    .figure{margin:8px 0 2px}.figure svg{width:100%;height:auto;display:block}
+    .figcap{font-size:10.5px;color:var(--muted);margin:4px 0 0;font-family:"Helvetica Neue",Arial,sans-serif}
+    .two{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+    .tree{margin:4px 0 0;padding:10px 12px;background:#101c24;color:#edf4f7;border-radius:3px;white-space:pre-wrap;font:10.6px/1.42 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+    .tree .dim{color:#9fb0ba}.tree .hl{color:#8fc7e8}.tree .amb{color:#e0b062}
+    table{width:100%;border-collapse:collapse;font-size:12px}
+    th{text-align:left;font-size:9px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);padding:5px 6px;border-bottom:1.5px solid var(--ink)}
+    td{vertical-align:top;border-bottom:1px solid var(--line);padding:6px}td:first-child{font-weight:600;color:var(--blue);white-space:nowrap}
+    .status{display:grid;grid-template-columns:repeat(6,1fr);border:1px solid var(--line)}
+    .phase{padding:7px 8px;border-right:1px solid var(--line)}.phase:last-child{border:0}
+    .phase strong{display:block;font:700 9px/1.2 "Helvetica Neue",Arial,sans-serif;color:var(--blue);text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px}
+    .phase span{font-size:11px;line-height:1.25;display:block;color:var(--muted)}
+    .warnbox{border:1px solid #e0cfa8;background:#fdf8ee;padding:10px 13px;margin:10px 0 0;font-size:12px}
+    .warnbox strong{font-family:"Helvetica Neue",Arial,sans-serif;color:var(--warn)}
+    .fine{font-size:11px;color:var(--muted)}
+    .role{border:1px solid var(--line);border-top:3px solid var(--blue);background:var(--band);padding:10px 12px}.role h3{margin:0 0 5px}
+    ul.tight{margin:4px 0 0;padding-left:16px}ul.tight li{font-size:12px;margin-bottom:3px}
+    footer{display:flex;justify-content:space-between;gap:12px;border-top:1px solid var(--line);padding-top:10px;margin-top:14px;color:var(--muted);font-size:10px}
+    @media print{body{background:#fff}.sheet{margin:0;max-width:none;box-shadow:none;padding:20px 26px}h2{break-after:avoid}.figure,.two,table,.status,.warnbox{break-inside:avoid}}
+    @media(max-width:760px){.sheet{margin:0;padding:26px 20px}.two,.status{grid-template-columns:1fr}.phase{border-right:0;border-bottom:1px solid var(--line)}.phase:last-child{border-bottom:0}}
+  </style>
+</head>
+<body><main class="sheet">
+  <header>
+    <p class="eyebrow">Wu Consulting · Biometrics Delivery</p>
+    <h1>Harness Structure and Run Flow</h1>
+    <p class="sub">Folder layout, file layout, and the sequence one unit of clinical programming work follows from work order to release.</p>
+  </header>
+
+  <p class="lede">A harness is the controlled workplace a clinical programmer works inside. It does not replace the programmer and is not built to. The programmer holds the judgment &mdash; what the specification means, which derivation is right, whether a finding is a real defect or an explained exception, whether the output can be released. The harness holds everything around that judgment: the approved inputs, the pinned standards versions, the program, the SAS run, the checks, the findings, the reviewer's decision, and the evidence of what happened. The pairing is the product. The programmer reaches each decision sooner because setup, execution, checking and evidence capture are already done, and each decision is better supported because the harness can show exactly what it rested on.</p>
+  <p>SAS, the statistical software these programs run in, sits outside the harness. The harness submits an approved program to a licensed SAS environment and captures the result.</p>
+
+  <h2>Division of labor</h2>
+  <div class="two">
+    <div class="role"><h3>The programmer decides</h3><ul class="tight">
+      <li>What the specification means where it is silent or ambiguous</li>
+      <li>Which derivation is scientifically correct</li>
+      <li>Whether a finding is a real defect or an explained exception</li>
+      <li>Whether the deliverable is fit to release, and signs for it</li>
+    </ul></div>
+    <div class="role"><h3>The harness does</h3><ul class="tight">
+      <li>Freezes and hashes the inputs, pins the standards versions</li>
+      <li>Submits the program to SAS, captures log, datasets and reports</li>
+      <li>Runs the log rule pack, structural, terminology and comparison checks</li>
+      <li>Writes the run record and blocks release until a named human signs</li>
+    </ul></div>
+  </div>
+
+  <h2>How a unit runs</h2>
+  <div class="figure">
+    <svg viewBox="0 0 940 316" role="img" aria-label="Run flow across five steps; a correction loop in which the SAS programmer takes a finding from the check step back to program preparation and re-runs; the kernel service that backs each step shown as a tethered layer beneath it; and one run record spanning all five steps">
+      <defs><marker id="a1" markerWidth="9" markerHeight="9" refX="8" refY="3.2" orient="auto"><path d="M0,0 L8,3.2 L0,6.4 z" fill="#1f5f8b"/></marker>
+      <marker id="a2" markerWidth="9" markerHeight="9" refX="8" refY="3.2" orient="auto"><path d="M0,0 L8,3.2 L0,6.4 z" fill="#9a6415"/></marker></defs>
+      <g font-family="Helvetica Neue, Arial, sans-serif">
+        <text x="6" y="14" font-size="9" font-weight="700" fill="#1f5f8b" letter-spacing="0.8">RUN FLOW — ONE UNIT</text>
+
+        <path d="M654,54 L654,34 L604,34" fill="none" stroke="#9a6415" stroke-width="1.4" stroke-dasharray="5 4"/>
+        <path d="M328,34 L278,34 L278,52" fill="none" stroke="#9a6415" stroke-width="1.4" stroke-dasharray="5 4" marker-end="url(#a2)"/>
+        <text x="466" y="38" font-size="9.5" fill="#9a6415" text-anchor="middle">SAS programmer corrects the program and re-runs</text>
+
+        <g text-anchor="middle">
+          <rect x="6" y="54" width="168" height="94" rx="4" fill="#eef4f8" stroke="#1f5f8b" stroke-width="1.6"/>
+          <text x="90" y="74" font-size="11" font-weight="700" fill="#1f5f8b">1 · Work order</text>
+          <text x="90" y="94" font-size="9.5" fill="#12222e">One named deliverable</text>
+          <text x="90" y="110" font-size="9.5" fill="#12222e">Declared dependencies</text>
+          <text x="90" y="126" font-size="9.5" fill="#12222e">Acceptance tests, QC method</text>
+          <text x="90" y="141" font-size="9.5" fill="#53646e">Named reviewer assigned</text>
+
+          <rect x="194" y="54" width="168" height="94" rx="4" fill="#fff" stroke="#d7dfe4"/>
+          <text x="278" y="74" font-size="11" font-weight="700" fill="#1f5f8b">2 · Freeze and prepare</text>
+          <text x="278" y="94" font-size="9.5" fill="#12222e">Inputs hashed, SHA-256</text>
+          <text x="278" y="110" font-size="9.5" fill="#12222e">Standards versions pinned</text>
+          <text x="278" y="126" font-size="9.5" fill="#12222e">Program written to spec</text>
+          <text x="278" y="141" font-size="9.5" fill="#53646e">Environment asserted</text>
+
+          <rect x="382" y="54" width="168" height="94" rx="4" fill="#fff" stroke="#d7dfe4"/>
+          <text x="466" y="74" font-size="11" font-weight="700" fill="#1f5f8b">3 · Execute in SAS</text>
+          <text x="466" y="94" font-size="9.5" fill="#12222e">Program submitted</text>
+          <text x="466" y="110" font-size="9.5" fill="#12222e">Return code captured</text>
+          <text x="466" y="126" font-size="9.5" fill="#12222e">Log, datasets, reports saved</text>
+          <text x="466" y="141" font-size="9.5" fill="#53646e">Outputs hashed</text>
+
+          <rect x="570" y="54" width="168" height="94" rx="4" fill="#fff" stroke="#d7dfe4"/>
+          <text x="654" y="74" font-size="11" font-weight="700" fill="#1f5f8b">4 · Check</text>
+          <text x="654" y="94" font-size="9.5" fill="#12222e">Log rule pack applied</text>
+          <text x="654" y="110" font-size="9.5" fill="#12222e">Structure, XPT, terminology</text>
+          <text x="654" y="126" font-size="9.5" fill="#12222e">Validator run, findings logged</text>
+          <text x="654" y="141" font-size="9.5" fill="#53646e">PROC COMPARE where required</text>
+
+          <rect x="758" y="54" width="176" height="94" rx="4" fill="#eef4f8" stroke="#1f5f8b" stroke-width="1.6"/>
+          <text x="846" y="74" font-size="11" font-weight="700" fill="#1f5f8b">5 · Review and release</text>
+          <text x="846" y="94" font-size="9.5" fill="#12222e">Findings closed or explained</text>
+          <text x="846" y="110" font-size="9.5" fill="#12222e">Named human dispositions</text>
+          <text x="846" y="126" font-size="9.5" fill="#12222e">Manifest updated</text>
+          <text x="846" y="141" font-size="9.5" fill="#53646e">Release gate opens</text>
+        </g>
+
+        <g stroke="#1f5f8b" stroke-width="1.6" marker-end="url(#a1)">
+          <line x1="176" y1="101" x2="190" y2="101"/>
+          <line x1="364" y1="101" x2="378" y2="101"/>
+          <line x1="552" y1="101" x2="566" y2="101"/>
+          <line x1="740" y1="101" x2="754" y2="101"/>
+        </g>
+
+        <g stroke="#9ab6c7" stroke-width="1" stroke-dasharray="2 3">
+          <line x1="90" y1="148" x2="90" y2="174"/>
+          <line x1="278" y1="148" x2="278" y2="174"/>
+          <line x1="466" y1="148" x2="466" y2="174"/>
+          <line x1="654" y1="148" x2="654" y2="174"/>
+          <line x1="846" y1="148" x2="846" y2="174"/>
+        </g>
+
+        <rect x="6" y="174" width="928" height="86" rx="4" fill="#f4f8fb" stroke="#c3d5e0"/>
+        <g stroke="#dde7ee" stroke-width="1">
+          <line x1="184" y1="196" x2="184" y2="252"/>
+          <line x1="372" y1="196" x2="372" y2="252"/>
+          <line x1="560" y1="196" x2="560" y2="252"/>
+          <line x1="750" y1="196" x2="750" y2="252"/>
+        </g>
+        <text x="20" y="190" font-size="8.5" font-weight="700" fill="#1f5f8b" letter-spacing="0.8">KERNEL SERVICE THE PROGRAMMER USES AT EACH STEP — BUILT ONCE, REUSED BY EVERY HARNESS</text>
+        <g text-anchor="middle" font-size="10" fill="#12222e">
+          <text x="90" y="216">Work-order schema</text><text x="90" y="236">Dependency manifest</text>
+          <text x="278" y="216">Input freezing</text><text x="278" y="236">Standards pinning</text>
+          <text x="466" y="216">SAS execution adapter</text><text x="466" y="236">Run record writer</text>
+          <text x="654" y="216">Log rule pack</text><text x="654" y="236">Check library</text>
+          <text x="846" y="216">Findings register</text><text x="846" y="236">Review and release gate</text>
+        </g>
+
+        <rect x="6" y="272" width="928" height="36" rx="4" fill="#12222e"/>
+        <text x="20" y="288" font-size="8.5" font-weight="700" fill="#8fc7e8" letter-spacing="0.8">ONE RUN RECORD, APPENDED AT EVERY STEP AND EVERY RERUN</text>
+        <text x="20" y="301" font-size="10" fill="#dbe6ec">Input hashes · standards versions · environment · execution result · check verdicts · reviewer · disposition</text>
+        <g stroke="#4a6472" stroke-width="1" stroke-dasharray="2 3">
+          <line x1="90" y1="260" x2="90" y2="272"/>
+          <line x1="278" y1="260" x2="278" y2="272"/>
+          <line x1="466" y1="260" x2="466" y2="272"/>
+          <line x1="654" y1="260" x2="654" y2="272"/>
+          <line x1="846" y1="260" x2="846" y2="272"/>
+        </g>
+      </g>
+    </svg>
+    <p class="figcap">Figure 1 — The five steps of a unit run, the kernel service the programmer uses at each one, and the single run record they all append to. A finding at step 4 returns the unit to step 2: the SAS programmer corrects the program and re-runs, within the allowance set in the work order, with the frozen input hashes re-verified before each rerun. The assistant may draft the program at step 2; it holds no release credentials at step 5.</p>
+  </div>
+
+  <h2>Folder structure</h2>
+  <div class="two">
+    <div>
+      <h3>Study level</h3>
+      <div class="tree">PRO-101 Study Harness/
+├── <span class="hl">HARNESS.md</span>                 <span class="dim">operating rules</span>
+├── <span class="hl">study.config.yaml</span>          <span class="dim">IDs, versions, blinding</span>
+├── <span class="hl">manifest.json</span>              <span class="dim">dependency graph</span>
+│
+├── 01 Approved Inputs/       <span class="dim">frozen + hashed</span>
+│   ├── raw/
+│   ├── transfers/
+│   └── specifications/
+├── 02 Standards and Rules/   <span class="dim">version-pinned</span>
+│   ├── sdtmig-3.4/
+│   ├── adamig-1.3/
+│   ├── define-xml-2.1/
+│   ├── ct-2026-03-27/
+│   ├── fda-validator-rules-1.6/
+│   ├── log-rules-v1.4.yaml
+│   └── macros/               <span class="dim">client library, pinned</span>
+├── 03 Unit Work Orders/
+├── 04 Programs/              <span class="dim">production/ + qc/</span>
+├── 05 Outputs/               <span class="dim">production/ + qc/</span>
+├── 06 Run Evidence/          <span class="dim">run records + logs</span>
+├── 07 Findings and Reruns/
+├── 08 Human Review/
+└── 09 Release Package/       <span class="dim">approval-gated</span></div>
+    </div>
+    <div>
+      <h3>File structure for one unit</h3>
+      <div class="tree"><span class="dim">Example: ADaM/ADAE, double-programmed</span>
+
+03 Unit Work Orders/ADaM/ADAE/
+└── work-order-v3.yaml        <span class="dim">scope, inputs, tests</span>
+
+04 Programs/ADaM/ADAE/
+├── production/adae.sas
+└── <span class="amb">qc/adae_qc.sas</span>            <span class="amb">access-isolated</span>
+
+05 Outputs/ADaM/ADAE/
+├── production/adae.sas7bdat
+├── production/adae.xpt
+└── qc/adae_qc.sas7bdat
+
+06 Run Evidence/ADaM/ADAE/
+├── run-2026-08-14T0922Z.json
+├── adae.log
+├── adae_qc.log
+└── compare/proc_compare.lst
+
+07 Findings and Reruns/ADaM/ADAE/
+├── findings.csv
+├── validator-report.xlsx
+└── rerun-002/
+
+08 Human Review/ADaM/ADAE/
+└── disposition.json          <span class="dim">named reviewer</span></div>
+    </div>
+  </div>
+  <p class="fine">In a double-programmed unit, two programmers build the same deliverable independently from the same specification. The QC branch is a credential boundary, not a naming convention: the context that produces <code>qc/adae_qc.sas</code> cannot read <code>production/adae.sas</code> or its outputs. The evidence is the PROC COMPARE report (the SAS step that diffs two datasets), not either output.</p>
+
+  <h2>What the run record holds</h2>
+  <table>
+    <thead><tr><th>Group</th><th>Recorded for every execution</th></tr></thead>
+    <tbody>
+      <tr><td>Unit</td><td>Study, deliverable, work-order version, declared dependencies.</td></tr>
+      <tr><td>Inputs</td><td>SHA-256 of every frozen dataset, specification, and macro consumed. Verified before any rerun.</td></tr>
+      <tr><td>Standards</td><td>SDTMIG, ADaMIG, Define-XML, controlled terminology package date, validator rule pack version, log rule pack version.</td></tr>
+      <tr><td>Environment</td><td>SAS version and hotfix level, operating system, encoding, locale, time zone, macro library commit, format catalog hash.</td></tr>
+      <tr><td>Execution</td><td>Start, end, return code, resource usage.</td></tr>
+      <tr><td>Checks</td><td>Log findings by severity, structural and transport-format results, terminology results, comparison outcome.</td></tr>
+      <tr><td>Outputs</td><td>Path and SHA-256 for every produced file.</td></tr>
+      <tr><td>Assistant</td><td>Tool name, model version, prompt-pack version. Recorded as provenance; never a source of verdicts.</td></tr>
+      <tr><td>Review</td><td>Reviewer, timestamp, disposition, release decision.</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Order of deliverables</h2>
+  <div class="status">
+    <div class="phase"><strong>Sources</strong><span>Study inputs: protocol and SAP, annotated CRF (aCRF), EDC raw data, vendor transfers.</span></div>
+    <div class="phase"><strong>SDTM</strong><span>Regulator-ready tabulations: DM first, then trial design, domain families, SUPP-- and RELREC.</span></div>
+    <div class="phase"><strong>ADaM</strong><span>Analysis-ready datasets: ADSL first, then ADAE, ADLB, ADVS, ADTTE and custom sets.</span></div>
+    <div class="phase"><strong>TLF</strong><span>The report's tables, listings and figures, built against approved shells.</span></div>
+    <div class="phase"><strong>Metadata</strong><span>Define-XML dictionaries for SDTM and ADaM, cSDRG and ADRG reviewer guides, aCRF.</span></div>
+    <div class="phase"><strong>Submission</strong><span>Technical QC, final manifest, package released only on approval.</span></div>
+  </div>
+  <p class="fine">Editing any artifact marks every downstream artifact that references it stale in <code>manifest.json</code> and blocks release until it is re-run, re-checked and re-dispositioned.</p>
+
+  <div class="warnbox">
+    <p style="margin:0"><strong>Boundaries.</strong> The harness runs inside the client-approved environment. Blinded and unblinded work run as separate instances with separate credentials and evidence stores. The assistant never receives passwords, unblinding keys, or release credentials, and may draft only one side of a double-programmed unit. Without a reachable licensed SAS environment, the harness runs in simulation mode on synthetic or public fixture data, and every execution and validation status is marked untested.</p>
+  </div>
+
+  <footer><span>Wu Consulting · Functional Service Provider · Biometrics &amp; Data Sciences</span><span>Harness Structure and Run Flow · Internal · August 4, 2026</span></footer>
+</main></body></html>
