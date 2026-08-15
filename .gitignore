@@ -20,3 +20,7 @@
 __pycache__/
 *.pyc
 .venv/
+
+# Training exercise outputs — student-generated files, not committed
+R/ADSL-Simulation.R
+data/adsl.rds
