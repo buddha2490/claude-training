@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "cdisc-rag": {
+      "command": "node",
+      "args": ["rag/server.js"]
+    }
+  }
+}

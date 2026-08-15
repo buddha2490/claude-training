@@ -1,0 +1,14 @@
+{
+  "name": "cdisc-rag",
+  "version": "1.0.0",
+  "description": "CDISC RAG MCP server — FTS5 keyword search over rag.db",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.15.0",
+    "zod": "^3.23.0"
+  }
+}

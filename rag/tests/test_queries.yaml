@@ -1,0 +1,669 @@
+# Test queries for validating RAG retrieval quality
+# Run with: python scripts/validate_index.py
+
+queries:
+  - query: "What are the valid CDISC controlled terminology values for AEOUT?"
+    expected_terms:
+      - "RECOVERED/RESOLVED"
+      - "RECOVERING/RESOLVING"
+      - "NOT RECOVERED/NOT RESOLVED"
+      - "RECOVERED/RESOLVED WITH SEQUELAE"
+      - "FATAL"
+      - "UNKNOWN"
+    source_type: cdisc-ct
+
+  - query: "What is the MedDRA preferred term for pneumonitis?"
+    expected_terms:
+      - "Pneumonitis"
+      - "10035742"
+    source_type: meddra
+
+  - query: "What is the CTCAE grade 3 definition for pneumonitis?"
+    expected_terms:
+      - "Grade 3"
+      - "oxygen"
+    source_type: ctcae
+
+  - query: "What is pembrolizumab?"
+    expected_terms:
+      - "Keytruda"
+      - "PD-1"
+    source_type: rxnorm
+
+  - query: "What defines a partial response in RECIST 1.1?"
+    expected_terms:
+      - "30%"
+      - "decrease"
+    source_type: recist
+
+# ---------------------------------------------------------------------------
+# ADS Documentation
+# ---------------------------------------------------------------------------
+
+  - query: "What is an analytical dataset and how is it structured?"
+    expected_terms:
+      - "wide"
+      - "single row per patient"
+      - "tidy"
+    source_type: ADS
+
+  - query: "What is the difference between Enriched and Essentials ADS?"
+    expected_terms:
+      - "Enriched"
+      - "Essentials"
+    source_type: ADS
+
+  - query: "Are the ADS de-identified or identified? What is the difference?"
+    expected_terms:
+      - "de-identified"
+      - "PHI"
+      - "identified"
+    source_type: ADS
+
+  - query: "How do I load or access the ADS in RStudio?"
+    expected_terms:
+      - "get_ads"
+      - "S3"
+      - "syhelpr"
+    source_type: ADS
+
+  - query: "How do I test ADS code changes before releasing to production?"
+    expected_terms:
+      - "Airflow"
+      - "SQA"
+    source_type: ADS
+
+  - query: "What is the whitelist in ADS and what is it used for?"
+    expected_terms:
+      - "whitelist"
+      - "PHI"
+      - "variables"
+    source_type: ADS
+
+  - query: "How do I update the whitelist when adding a new variable?"
+    expected_terms:
+      - "whitelist"
+      - "data dictionary"
+    source_type: ADS
+
+  - query: "What are the requirements for code review before merging an ADS PR?"
+    expected_terms:
+      - "Airflow"
+      - "SQA"
+      - "Jira"
+    source_type: ADS
+
+  - query: "How do I release ADS changes as part of the FDR process?"
+    expected_terms:
+      - "FDR"
+      - "master"
+    source_type: ADS
+
+  - query: "What columns are required in an ADS data dictionary?"
+    expected_terms:
+      - "Data Element"
+      - "ADS Variable Name"
+    source_type: ADS
+
+  - query: "Where should reusable ADS functions go to avoid code duplication across cohorts?"
+    expected_terms:
+      - "syhelpr"
+      - "functionalized"
+      - "code duplication"
+    source_type: ADS
+
+  - query: "How do I add a new R package dependency to the ADS project?"
+    expected_terms:
+      - "lockfile"
+    source_type: ADS
+
+# ---------------------------------------------------------------------------
+# ADS Codebase (ads-code)
+# ---------------------------------------------------------------------------
+
+  - query: "How is ECOG performance status derived in the ADS?"
+    expected_terms:
+      - "derive_ecog"
+      - "kps"
+    source_type: ads-code
+
+  - query: "What function builds lines of therapy?"
+    expected_terms:
+      - "line-of-therapy"
+      - "regimen"
+    source_type: ads-code
+
+  - query: "How does the bladder cohort handle tumor prioritization?"
+    expected_terms:
+      - "tumor"
+      - "bladder"
+    source_type: ads-code
+
+  - query: "What SPMD tables does the biomarker derivation use?"
+    expected_terms:
+      - "molecularbiomarker"
+      - "spmd"
+    source_type: ads-code
+
+  - query: "How is the de-identified ADS written to S3?"
+    expected_terms:
+      - "parquet"
+      - "deid"
+    source_type: ads-code
+
+  - query: "What is the whitelist and how do I add a new variable to it?"
+    expected_terms:
+      - "whitelist"
+      - "get_whitelist_config"
+    source_type: ads-code
+
+  - query: "How does the breast cohort handle HER2 status derivation?"
+    expected_terms:
+      - "her2"
+      - "breast"
+    source_type: ads-code
+
+# ---------------------------------------------------------------------------
+# Posit Tech Guide
+# ---------------------------------------------------------------------------
+
+  - query: "What is the package manager password for authenticating package downloads?"
+    expected_terms:
+      - "__token__"
+      - "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
+      - "packagemanager.posit.npowermedicine.com"
+    source_type: posit
+
+  - query: "How do I configure Posit Workbench to use the internal package repository?"
+    expected_terms:
+      - "CRAN"
+      - "packagemanager.posit.npowermedicine.com"
+      - ".Rprofile"
+    source_type: posit
+
+  - query: "How do I connect to Databricks from Posit Workbench?"
+    expected_terms:
+      - "syhelpr"
+      - "connect_databricks"
+    source_type: posit
+
+  - query: "What Okta groups do I need to request access to Posit products?"
+    expected_terms:
+      - "Posit-Workbench-Prod-Users"
+      - "Posit-Connect-Publishers-Prod"
+      - "Posit-Package-Manager-Users"
+    source_type: posit
+
+  - query: "How do I configure renv to download packages from Package Manager?"
+    expected_terms:
+      - "RENV_DOWNLOAD_METHOD"
+      - "curl"
+    source_type: posit
+
+  # NAACCR
+  - query: "What is NAACCR item 400 Primary Site?"
+    expected_terms:
+      - "Primary Site"
+      - "ICD-O"
+    source_type: naaccr
+
+  - query: "What are the coded values for Vital Status in NAACCR?"
+    expected_terms:
+      - "1760"
+      - "Dead"
+      - "Alive"
+    source_type: naaccr
+
+  - query: "What NAACCR item captures sex of the patient?"
+    expected_terms:
+      - "220"
+      - "Sex"
+    source_type: naaccr
+
+  - query: "What is the XML NAACCR ID for Primary Site?"
+    expected_terms:
+      - "primarySite"
+    source_type: naaccr
+
+  - query: "Which registries contribute NAACCR data to NPM?"
+    expected_terms:
+      - "Henry Ford"
+      - "registry_naaccr"
+    source_type: naaccr
+
+  - query: "What is the consolidated NAACCR table for cross-registry analysis?"
+    expected_terms:
+      - "registry_naaccr"
+      - "spmd_prod"
+    source_type: naaccr
+
+  - query: "What NAACCR items are in the Cancer Identification section?"
+    expected_terms:
+      - "Primary Site"
+      - "Histol"
+    source_type: naaccr
+
+  - query: "How is Grade coded in NAACCR?"
+    expected_terms:
+      - "Grade"
+      - "440"
+    source_type: naaccr
+
+  - query: "What does NAACCR item 160 Race contain?"
+    expected_terms:
+      - "Race"
+      - "White"
+    source_type: naaccr
+
+  - query: "What is the NAACCR item number for date of diagnosis?"
+    expected_terms:
+      - "380"
+      - "Date of Diagnosis"
+    source_type: naaccr
+
+# ---------------------------------------------------------------------------
+# De-identifying Customer Data
+# ---------------------------------------------------------------------------
+
+  - query: "What syhelpr functions are available for de-identifying patient data?"
+    expected_terms:
+      - "deid_date_shift"
+      - "deid_age"
+      - "deid_birth_date"
+    source_type: resources
+
+  - query: "What is the process for de-identifying data when a customer terminates their contract?"
+    expected_terms:
+      - "de-id"
+      - "Jira"
+      - "customer"
+    source_type: resources
+
+  - query: "How should de-identified datasets be saved and where?"
+    expected_terms:
+      - "deid"
+      - "folder"
+    source_type: resources
+
+  - query: "What data can be kept indefinitely after study closeout or customer departure?"
+    expected_terms:
+      - "aggregated"
+      - "statistics"
+    source_type: resources
+
+# ---------------------------------------------------------------------------
+# Charlson Comorbidity Index
+# ---------------------------------------------------------------------------
+
+  - query: "How is the Charlson Comorbidity Index calculated in the ADS?"
+    expected_terms:
+      - "charlson"
+      - "comorbidity"
+    source_type: resources
+
+  - query: "What R function computes the Charlson score?"
+    expected_terms:
+      - "get_comorbidity_score"
+      - "charlson"
+    source_type: resources
+
+  - query: "What are the Charlson comorbidity weights?"
+    expected_terms:
+      - "assign0"
+      - "Quan"
+    source_type: resources
+
+# ---------------------------------------------------------------------------
+# Elixhauser Comorbidity Index
+# ---------------------------------------------------------------------------
+
+  - query: "How is the Elixhauser Comorbidity Index calculated?"
+    expected_terms:
+      - "elixhauser"
+      - "comorbidity"
+    source_type: resources
+
+  - query: "What R function computes the Elixhauser score?"
+    expected_terms:
+      - "get_comorbidity_score"
+      - "elixhauser"
+    source_type: resources
+
+# ---------------------------------------------------------------------------
+# Date Imputation
+# ---------------------------------------------------------------------------
+
+  - query: "How are partial dates represented in SPMD?"
+    expected_terms:
+      - "partial"
+      - "UNKN"
+    source_type: resources
+
+  - query: "What are the different granularities for partial dates?"
+    expected_terms:
+      - "dateym"
+      - "datey"
+    source_type: resources
+
+# ---------------------------------------------------------------------------
+# Date Imputation for Lines of Therapy
+# ---------------------------------------------------------------------------
+
+  - query: "How are partial dates imputed in the lines of therapy algorithm?"
+    expected_terms:
+      - "imput"
+      - "15"
+    source_type: resources
+
+  - query: "What happens when the therapy end date is unknown but the therapy is ongoing?"
+    expected_terms:
+      - "ongoing"
+      - "last contact"
+    source_type: resources
+
+# ---------------------------------------------------------------------------
+# Definitive Surgery
+# ---------------------------------------------------------------------------
+
+  - query: "What is the definition of definitive surgery for cancer patients?"
+    expected_terms:
+      - "definitive"
+      - "surgery"
+    source_type: resources
+
+  - query: "How is the definitive surgery date selected for breast cancer patients?"
+    expected_terms:
+      - "breast"
+      - "mastectomy"
+    source_type: resources
+
+# ---------------------------------------------------------------------------
+# Neoadjuvant / Adjuvant / Metastatic Settings
+# ---------------------------------------------------------------------------
+
+  - query: "What is the difference between neoadjuvant and adjuvant treatment settings?"
+    expected_terms:
+      - "neoadjuvant"
+      - "adjuvant"
+    source_type: resources
+
+  - query: "How is the metastatic setting defined for cancer patients?"
+    expected_terms:
+      - "metastatic"
+      - "metastasis"
+    source_type: resources
+
+  - query: "How are patients identified as having metastatic disease in the treatment settings model?"
+    expected_terms:
+      - "C77"
+      - "C79"
+      - "de novo"
+    source_type: resources
+
+# ---------------------------------------------------------------------------
+# Data Sources — EHR Health Systems
+# ---------------------------------------------------------------------------
+
+  - query: "What data classes are available from the Advent health system?"
+    expected_terms:
+      - "Advent"
+      - "data class"
+    source_type: data-sources
+
+  - query: "What fields are in the Advent Encounter data class?"
+    expected_terms:
+      - "ENCOUNTERID"
+      - "ADMIT_DATE"
+    source_type: data-sources
+
+  - query: "What demographic fields does Ascension provide?"
+    expected_terms:
+      - "Ascension"
+      - "RACE"
+    source_type: data-sources
+
+  - query: "What data does Aurora provide for patient records?"
+    expected_terms:
+      - "Aurora"
+      - "Patient"
+    source_type: data-sources
+
+  - query: "What medication fields are in the HFH data source?"
+    expected_terms:
+      - "HFH"
+      - "Medication"
+    source_type: data-sources
+
+  - query: "What pathology fields are available from MLH?"
+    expected_terms:
+      - "MLH"
+      - "Pathology"
+    source_type: data-sources
+
+# ---------------------------------------------------------------------------
+# Data Sources — FHIR
+# ---------------------------------------------------------------------------
+
+  - query: "What FHIR resources are available in the data source?"
+    expected_terms:
+      - "FHIR"
+      - "Patient"
+    source_type: data-sources
+
+  - query: "What fields are in the FHIR MedicationRequest resource?"
+    expected_terms:
+      - "MedicationRequest"
+      - "dosage"
+    source_type: data-sources
+
+  - query: "What FHIR Patient resource variables are captured?"
+    expected_terms:
+      - "Patient"
+      - "birthDate"
+    source_type: data-sources
+
+# ---------------------------------------------------------------------------
+# Data Sources — HL7 Messages
+# ---------------------------------------------------------------------------
+
+  - query: "What segments are in an HL7 ADT A08 message?"
+    expected_terms:
+      - "ADT"
+      - "MSH"
+    source_type: data-sources
+
+  - query: "What fields are in the HL7 ORU message patient identification segment?"
+    expected_terms:
+      - "ORU"
+      - "PID"
+    source_type: data-sources
+
+  - query: "What fields are in the HL7 MDM TXA segment?"
+    expected_terms:
+      - "TXA"
+      - "Document"
+    source_type: data-sources
+
+# ---------------------------------------------------------------------------
+# Data Sources — Claims 837
+# ---------------------------------------------------------------------------
+
+  - query: "What fields are required in the 837 claims submission format?"
+    expected_terms:
+      - "837"
+      - "claim"
+    source_type: data-sources
+
+  - query: "What is the X12 loop for the billing provider organization name in claims?"
+    expected_terms:
+      - "2010AA"
+      - "Organization"
+    source_type: data-sources
+
+# ---------------------------------------------------------------------------
+# NPM Context — Patient Identifier System
+# ---------------------------------------------------------------------------
+
+  - query: "What is the canonical patient identifier bridge table in NPM?"
+    expected_terms:
+      - "temp_gold"
+      - "development"
+      - "patientid"
+    source_type: npm-context
+
+  - query: "Why should I avoid joining SACT data on npm_patient_id?"
+    expected_terms:
+      - "190"
+      - "null"
+      - "site"
+      - "mrn"
+    source_type: npm-context
+
+  - query: "What are the four patient identifier types in NPM and which sources carry each?"
+    expected_terms:
+      - "patientid"
+      - "npm_pat_id"
+      - "site"
+      - "mrn"
+    source_type: npm-context
+
+  - query: "How do I rename and normalize Raydar data before joining to patient_map?"
+    expected_terms:
+      - "patient_raydar_id"
+      - "patientid"
+      - "bayhealth"
+      - "BH"
+    source_type: npm-context
+
+# ---------------------------------------------------------------------------
+# NPM Context — Patient Map Bridge Table
+# ---------------------------------------------------------------------------
+
+  - query: "How many rows in temp_gold.patient have a null patientid?"
+    expected_terms:
+      - "15,564"
+      - "489,181"
+    source_type: npm-context
+
+  - query: "What is the difference between bronze.patient_identity_mapping and temp_gold.patient?"
+    expected_terms:
+      - "bronze"
+      - "subset"
+      - "legacy"
+    source_type: npm-context
+
+  - query: "What columns does development.temp_gold.patient contain?"
+    expected_terms:
+      - "npm_pat_id"
+      - "site"
+      - "mrn"
+      - "patientid"
+    source_type: npm-context
+
+# ---------------------------------------------------------------------------
+# NPM Context — Raydar Data Source
+# ---------------------------------------------------------------------------
+
+  - query: "What is the diagnosis code column name in the Raydar patient_diagnosis table?"
+    expected_terms:
+      - "icd_10_code"
+    source_type: npm-context
+
+  - query: "What sites does the Raydar data transfer cover?"
+    expected_terms:
+      - "bayhealth"
+      - "mlh"
+      - "BH"
+      - "MLH"
+    source_type: npm-context
+
+  - query: "How many unique patients are in the Raydar patient_diagnosis table?"
+    expected_terms:
+      - "12,850"
+    source_type: npm-context
+
+  - query: "What is the deleted column in Raydar patient_diagnosis used for?"
+    expected_terms:
+      - "deleted"
+      - "boolean"
+    source_type: npm-context
+
+# ---------------------------------------------------------------------------
+# NPM Context — Kaleido Registry Spine
+# ---------------------------------------------------------------------------
+
+  - query: "How do I build the NPM-001 consented registry from Databricks?"
+    expected_terms:
+      - "consent_status"
+      - "NPM-001"
+      - "Consented"
+    source_type: npm-context
+
+  - query: "Which sites are NOT covered by patient_diagnosis_union in the Kaleido registry?"
+    expected_terms:
+      - "BH"
+      - "MLH"
+      - "ALCC"
+    source_type: npm-context
+
+  - query: "How many NPM-001 consented patients are there and what is the breakdown by site?"
+    expected_terms:
+      - "19,720"
+      - "OC"
+      - "NMCC"
+    source_type: npm-context
+
+  - query: "Does consent_status have an mrn column?"
+    expected_terms:
+      - "mrn"
+      - "temp_gold"
+    source_type: npm-context
+
+# ---------------------------------------------------------------------------
+# NPM Context — SACT Data Source
+# ---------------------------------------------------------------------------
+
+  - query: "What flag in meds_union_silver filters to systemic anti-cancer therapy?"
+    expected_terms:
+      - "is_sact"
+    source_type: npm-context
+
+  - query: "How do I join SACT to other NPM sources to get npm_pat_id?"
+    expected_terms:
+      - "site"
+      - "mrn"
+      - "patient_map"
+    source_type: npm-context
+
+# ---------------------------------------------------------------------------
+# NPM Context — GPT Diagnosis Data Source
+# ---------------------------------------------------------------------------
+
+  - query: "Where is the GPT-normalized cancer diagnosis data stored?"
+    expected_terms:
+      - "ai_development"
+      - "feasibility"
+      - "diagnosis_gpt_normalized"
+    source_type: npm-context
+
+  - query: "How do I deduplicate GPT diagnosis records to one row per patient?"
+    expected_terms:
+      - "cancer_dx_date"
+      - "distinct"
+    source_type: npm-context
+
+# ---------------------------------------------------------------------------
+# NPM Context — Population Overlap
+# ---------------------------------------------------------------------------
+
+  - query: "What percentage of NPM registry patients appear in SACT?"
+    expected_terms:
+      - "73%"
+      - "14,331"
+    source_type: npm-context
+
+  - query: "How many ADS patients resolve to an npm_pat_id through patient_map?"
+    expected_terms:
+      - "15,340"
+      - "2.4%"
+    source_type: npm-context

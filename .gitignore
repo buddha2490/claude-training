@@ -5,7 +5,10 @@
 # Quarto rendered output
 *_files/
 *.html
-!docs/*.html
+
+# Docs folder and specific overview files
+/wu-docs/
+
 
 # VS Code local config (contains local file paths)
 .vscode/.mcp.json
