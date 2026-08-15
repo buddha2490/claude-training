@@ -1,7 +1,7 @@
 # ui.R — Wu AI Harness
 
 ui <- dashboardPage(
-  skin = "blue",
+  skin = "black",
 
   # --- Header ----------------------------------------------------------------
   dashboardHeader(
