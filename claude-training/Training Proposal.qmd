@@ -1,7 +1,7 @@
 ---
 title: "Claude Code Training for CDISC Programming"
-subtitle: "A Proposal and Course Syllabus"
-author: "Wu Consulting"
+subtitle: "A Proposal and Course Syllabus for Wu Consulting"
+author: "Brian Carter"
 date: today
 format:
   docx:
