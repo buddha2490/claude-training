@@ -1,136 +1,156 @@
+---
+title: "Claude Code Training for CDISC Programming"
+subtitle: "A Proposal and Course Syllabus"
+author: "Wu Consulting"
+date: today
+format:
+  docx:
+    toc: true
+    toc-depth: 2
+    number-sections: true
+---
 
+## Introduction
 
-### Introduction
+Wu Consulting plans to develop an AI harness to supplement its staff augmentation business in clinical research. Currently, consultants are deployed to develop SAS/R code for CDISC submissions, a time-consuming process. A typical FDA submission may include several dozen domains across SDTM and ADaM, along with numerous additional tables, figures, and listings (TFLs). Some of this work can be automated through standardized macros and adaptation of existing programs, but programming remains labor-intensive and takes significant time.
 
-Wu Consulting plans to develop an AI harness to supplement its staff agumentation business in clinical research.  Currently, consultants are deployed to develop SAS/R code for CDISC submissions.  This is a time consuming process.  A typical FDA submission may include several dozen domains across SDTM and ADaM and additional TFLs and listings are required.  Some of this work can be automated through standardized macros and adapting existing programs, but programming remains a labor instensive process and takes significant time.
+Incorporating AI tools into the development process could give Wu Consulting a competitive edge with its clients. Our team could develop code faster and potentially produce better results by focusing more effort on quality and validation rather than line-by-line coding and review.
 
-Incorporating AI tools into the development process could provide Wu Consulting with a competetive edge with their clients.  Our team could develop code faster and potentially produce better results if more effort could be focused on quality and validation rather than line-by-line coding.
+The company needs to develop this system and train its consultants on its use. Much of the harness has already been developed, but it would benefit from the extensive experience of our consultants before it is deployed to production.
 
-The company needs to develop this system and train its consultants on its use.  Much of the harness is already developed, but it could benefit from the extensive experience of our consultants before it is deployed in production.
+Our consultants currently have limited AI experience. I propose delivering a training in Claude Code to a select group of consultants. Once they are proficient with the basic Claude Code tools, they can assist me in refining the harness to our specific needs.
 
-Our consultants currently do not have much AI experience.  I propose delivering a training in Claude Code to a select group of consultants.  Once they are proficient with the basic Claude Code tools, they can assist me in refining the harness to our specific needs.
+## Proposal
 
-### Proposal
+I propose developing a Claude Code tutorial that will prepare consultants for a CDISC-specific workflow. I have provisioned a repository with a CDISC-Shiny toolkit to help them get started. This toolkit will derive ADaM data from SDTM, prepare listings, and generate TFLs in a standardized format, demonstrating most of the harness features that will be useful for this initiative.
 
-I propose developing a Claude Code tutorial that will prepare the consultants for a CDISC-specific workflow.  I have provisioned a repository with a CDISC-Shiny toolkit that will help them get started.  This toolkit will derive ADaM data from SDTM, prepare listings, and generate TFLs in a standardized format.  This will demo most of the features of a harness that will be useful for this initiative.
+This training will be R-Shiny based for a couple of reasons. First, my assumption is that few of the consultants in the training are dedicated Shiny developers, and I want them to get in the habit of using Claude to navigate a codebase rather than focusing on reading and evaluating the underlying code. Second, Shiny is engaging and provides the group with quick feedback. They can view the results of their work quickly without having to navigate output files and conduct tedious review.
 
-This training will be R-Shiny based for a couple of reasons.  First, my assumption is that few of the consultants in the training are dedicated Shiny developers and I want them to get in the habit of using Claude to navigate a code base rather than focusing on reading and evaluating the actual code.  Second, Shiny is fun and provides the group with quick feedback.  They can view the results of their work quickly without having to navigate output files and tedious review.
-
-I have already developed much of the CDISC-Claude harness for this initiative, but it requires input from collaborators.  I have provisioned this repo with a subset of this harness.  All the tools are written in markdown format and can be reviewed and evaluated by non-technical staff.  The ultimate goal of the training is have a set of collaborators that can help me evaluate the tools and refine them for an eventual production deployment.
+I have already developed much of the CDISC-Claude harness for this initiative, but it requires input from collaborators. I have provisioned this repository with a subset of the harness. All the tools are written in markdown format and can be reviewed and evaluated by non-technical staff. The ultimate goal of the training is to upskill a set of collaborators who can help me evaluate the tools and refine them for an eventual production deployment.
 
 The toolkit includes the following:
 
-- Instructions on how to install Positron, relevant extensions, GitHub, and Claude Code for Windows and MacOS.
-- .claude directory with agents, skills and rules for developing a Shiny application
-- MCP-based RAG for querying CDISC standards and referencing those standards when building out a code base
-- Sample (simulated) SDTM data that the consultants will use to derive ADaM datasets and TFLs using Claude and minimal specs.  
-- renv and .Rprofile to restore a standardized training environment
+- Instructions on how to install Positron, relevant extensions, GitHub, and Claude Code for Windows and macOS
+- A `.claude` directory with agents, skills, and rules for developing a Shiny application
+- An MCP-based RAG for querying CDISC standards and referencing those standards when building out a codebase
+- Sample (simulated) SDTM data that consultants will use to derive ADaM datasets and TFLs using Claude and minimal specifications
+- `renv` and `.Rprofile` configuration to restore a standardized training environment
 
-### Requirements from Wu Consulting
+## Accessing the repo
 
-There are a few items required by Wu Consulting to make this training a success.  The most important is access to Claude Code.  A basic individual subscription to Claude is $25 a month and will probably be sufficient.  I do not know if Anthropic is still offering Enterprise subscription accounts.  API pricing is certainly available and I can assist provisioning the APIs specific to each consultant for monitoring and tracking monthly billing.
+You can access the repo at my github account: git@github.com:buddha2490/claude-training.git
+
+
+## Requirements from Wu Consulting
+
+A few items are required from Wu Consulting to make this training a success. The most important is access to Claude Code. A basic individual subscription to Claude is $20 per month and will likely be sufficient. I do not know whether Anthropic is still offering Enterprise subscription accounts; API pricing is certainly available, and I can assist with provisioning APIs specific to each consultant for monitoring and tracking monthly billing.
 
 - List of consultants for the training
 - Scheduling
-- Claude Code subscription or API access.
+- Claude Code subscription or API access
 
-### Course Outline
+## Course Outline
 
-#### Day 1 — Orientation: What Claude Code Is and How to Think About It
+### Day 1 — Orientation: What is Claude Code and Basic Usage
 
-- **VSCode/Positron Setup** (~10 min)
-  - Configuring settings - Shift-Command-P or Shift-Control-P to access settings and tools
-  - Extensions - Claude Code for VS Code
-  - Projects and directories
-  - Source control/Git integration
-  - Install R
-  - Clone the course repository from GitHub and create a personal branch
-  - Demonstrate the shiny application I've developed for CDISC listings
+**VS Code/Positron Setup** (~10 min)
 
-- **Tour of the interface** (~10 min)
-  - Starting Claude Code in the Positron terminal 
-    - `claude`, `claude --dangerously-skip-permissions`
-  - Alternative using the VSCode extension
-  - Major components of a harness: Rules/Skills/Agents/MCP/RAG
-  - Basic commands: asking questions, requesting updates, permissions, providing screenshots to Claude
-  - How Claude reads and writes files in your working directory
+- Configuring settings — Shift+Command+P (macOS) or Shift+Control+P (Windows) to access settings and tools
+- Extensions — Claude Code for VS Code
+- Projects and directories
+- Source control/Git integration
+- Installing R
+- Cloning the course repository from GitHub and creating a personal branch
+- Demonstration of the Shiny application developed for CDISC listings
 
+**Tour of the Interface** (~10 min)
 
-- **The mental model** (~10 min)
-  - Claude is a collaborator, not a search engine — it reads your files and writes code alongside you
-  -  Understanding tokenized input/output and how this is billed.
-  - The context window: what Claude "sees" when you submit a prompt (open files, terminal output, conversation history)
-    - `/context`, `/compact`, `/clear`
-  - Models effort and when to use them: Haiku (fast, cheap), Sonnet (balanced, default), Opus (complex reasoning), Fable (when you want to burn through money)
-    `/models` `/effort medium/high`
+- Starting Claude Code in the Positron terminal: `claude`, `claude --dangerously-skip-permissions`
+- Alternative: using the VS Code extension
+- Major components of a harness: Rules, Skills, Agents, MCP, RAG
+- Basic commands: asking questions, requesting updates, managing permissions, providing screenshots to Claude
+- How Claude reads and writes files in your working directory
 
-- **Writing effective prompts** (~10 min)
-  - Be specific: include file names, variable names, and expected behavior
-  - Provide context: tell Claude what the code is supposed to do, not just what is broken
-  - Iterate: treat the first response as a draft, not a final answer
-  - Version control: regular commits make rollbacks simple.
+**The Mental Model** (~10 min)
 
-- **Hands-on exercise** (~20 min)
-  - Ask Claude to explain the starter app file in plain English
-  - Ask Claude to take the DM data and derive an ADSL dataset from the given DM.RDS file.  Claude needs to take the input dataset and treat it like a real input and derive from there with minimal input from the user.
-  - Demonstrate the MCP/RAG supporting these requests
+- Claude is a collaborator, not a search engine — it reads your files and writes code alongside you
+- Understanding tokenized input/output and how usage is billed
+- The context window: what Claude "sees" when you submit a prompt (open files, terminal output, conversation history) — `/context`, `/compact`, `/clear`
+- Model effort levels and when to use them: Haiku (fast, cheap), Sonnet (balanced, default), Opus (complex reasoning), Fable (highest-cost tier) — `/models`, `/effort medium/high`
 
----
+**Writing Effective Prompts** (~10 min)
 
-#### Day 2 — Project Structure and Persistent Context
+- Be specific: include file names, variable names, and expected behavior
+- Provide context: tell Claude what the code is supposed to do, not just what is broken
+- Iterate: treat the first response as a draft, not a final answer
+- Use version control: regular commits make rollbacks simple
 
-- **How Claude Code sees a project** (~10 min)
-  - The working directory as Claude's workspace
-  - `CLAUDE.md`: the project instruction file — what it is and why it matters
-  - The `.claude/` directory: rules, skills, memory, and agent definitions
+**Hands-On Exercise** (~20 min)
 
-- **Basic git workflow with Claude** (~10 min)
-  - Asking Claude to commit completed work (conventional commit format)
-  - Reviewing what Claude staged before committing
-  - The rule: Claude commits locally, humans decide when to push
-  - Develop a skill/rule that locally commits each turn in Claude conversation
+- Ask Claude to explain the starter app file in plain English
+- Ask Claude to take the DM data and derive an ADSL dataset from the given `DM.rds` file — Claude should treat the input dataset as a real input and derive from it with minimal guidance from the user
+- Demonstrate the MCP/RAG capabilities supporting these requests
 
-- **Hands-on exercise** (~20 min)
-  - Develop feature-planner and implementation agents for our workflows
-  - Ask feature-planner to scaffold a second Shiny module and have the implementation agent develop
-  - Module will display plotly graphics for all the variables in the ADSL with a dropdown to display variables
- 
+### Day 2 — Project Structure and Persistent Context
 
----
+**How Claude Code Sees a Project** (~10 min)
 
-#### Day 3 — Building and Debugging with Claude
+- The working directory as Claude's workspace
+- `CLAUDE.md`: the project instruction file — what it is and why it matters
+- The `.claude/` directory: rules, skills, memory, and agent definitions
 
-- **Planning before coding** (~10 min)
-  - Ask the feature-planner to generate a written plan before any code is written
-  - A good plan includes: purpose, inputs/outputs, file layout, acceptance criteria
-  - Review the plan and emphasize the structure of an effective prompt
+**Basic Git Workflow with Claude** (~10 min)
 
-- **Iterative development** (~10 min)
-  - Prompt → review → refine as the core loop
-  - Reading Claude's output critically: does it match the plan? does it introduce risk?
+- Asking Claude to commit completed work using conventional commit format
+- Reviewing what Claude has staged before committing
+- The rule: Claude commits locally; humans decide when to push
+- Developing a skill/rule that commits locally after each turn in a Claude conversation
 
+**Wizard for Developing Helpful Agens** (~10 min)
+- `/agent` command
+- Discussion of appropriate models and use cases
+- Group development of Git agent.
 
-- **Hands-on exercise** (~40 min)
-  - Build a QA/QC/testing agent for our feature planner
-  - Using the plan-first approach, add a feature to the Shiny application
-  - This feature will be a TFL using the <gt> package - simple frequency table, customize with headers, footnotes, titles, labels, etc.  
-  - Customize the app using CSS and Javascript components
-  - The QA/QC/testing agent will test and validate all code before declaring success.
+**Hands-On Exercise** (~30 min)
 
----
+- Develop feature-planner and implementation agents for our workflows
+- Ask the feature-planner to scaffold a second Shiny module and have the implementation agent build it out
+- The module will display Plotly graphics for all variables in the ADSL dataset, with a dropdown to select the variable displayed
 
-#### Day 4 — CDISC Workflows and the Wu AI Harness
+### Day 3 — Building and Debugging with Claude
 
-- **Introduction to the Wu AI harness** (~10 min)
-  - What the harness adds on top of base Claude Code: custom rules, skills, RAG search
-  - How domain-specific rules (SDTM, ADaM, pharmaRTF) are injected as project context
-  - Live demo: ask the harness to generate a starter SDTM domain transformation
+**Planning Before Coding** (~10 min)
 
-- **Hands-on exercise and wrap-up** (~40 min)
-  - Use the POC harness to generate a set of CDISC outputs based on a spec sheet
-  - Demonstrate how a human-produced spec sheet and documentation can create context to automate a finished product
+- Ask the feature-planner to generate a written plan before any code is written
+- A good plan includes: purpose, inputs/outputs, file layout, and acceptance criteria
+- Review the plan, emphasizing the structure of an effective prompt
+- Prompt → review → refine as the core development loop
+- Reading Claude's output critically: does it match the plan? Does it introduce risk?
 
-- **Asking  for development help** (~10 min)
-  -  How can Wu consultants contribute to this harness
-  -  They will see what can be done, and they will see holes in the process
-  -  This is where their expertise will be valued, refining skills and rules to fit the development needs.
+**Hands-On Exercise** (~50 min)
+
+- Build a QA/QC testing agent for our feature planner
+- Using the plan-first approach, add a feature to the Shiny application
+- Complicated workflow: develop all ADaM datasets, produce the listings, and generate the TFLs all within a single planning session.
+- This feature will be a TFL built with the `gt` package — a simple frequency table customized with headers, footnotes, titles, and labels
+- Customize the app using CSS and JavaScript components
+- The QA/QC testing agent will test and validate all code before declaring success
+
+### Day 4 — CDISC Workflows and the Wu AI Harness
+
+**Introduction to the Wu AI Harness** (~10 min)
+
+- What the harness adds on top of base Claude Code: custom rules, skills, and RAG search
+- How domain-specific rules (SDTM, ADaM, pharmaRTF) are injected as project context
+- Live demo: asking the harness to generate a starter SDTM domain transformation
+
+**Hands-On Exercise and Wrap-Up** (~40 min)
+
+- Use the proof-of-concept harness to generate a set of CDISC outputs based on a specification sheet
+- Demonstrate how a human-produced spec sheet and documentation can create the context needed to automate a finished product
+
+**Asking for Development Help** (~10 min)
+
+- How Wu consultants can contribute to this harness
+- Consultants will see what the harness can do and identify gaps in the process
+- This is where their expertise will be valued — refining skills and rules to fit development needs
