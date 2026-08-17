@@ -1,0 +1,129 @@
+### Requirements
+
+Claude Code is a command line tool that is platform independent.  Our consultants can install it on Windows, MacOS, or Linux at their discretion.  However, there are certain dependencies they will need prior to the training.
+
+#### Development IDE
+
+For this training, we will be using the Positron IDE, a VSCode clone specificly adapted to data science.  Positron is available for MacOS, Windows, and Linux and is a free download from Posit.  Participants can find it at the link below.  The remaining setup process will be through the TERMINAL section of Positron.  Many of our consultants are using SAS: the choice of this training in Positron/R is intentional because I want them to learn how to generate quality code without necessarily being proficient in that platform.  They will gain confidence in the AI and begin to develop an AI-specific set of validation skills.
+
+https://positron.posit.co/download.html
+
+#### Claude Code
+
+Claude Code is a command line tool that is accessed through the TERMINAL section in Positron.  Participants can download it through a set of commands.
+
+**Windows**
+
+Open PowerShell in Positron's terminal and run the following commands. The first installs Node.js (which includes npm, required by Claude Code). Close and reopen the terminal after the Node.js install before running the second command.
+
+```powershell
+# Step 1 — Install Node.js LTS (includes npm)
+winget install -e --id OpenJS.NodeJS.LTS
+
+# Step 2 — Close and reopen the terminal, then install Claude Code
+npm install -g @anthropic-ai/claude-code
+```
+
+**MacOS/Linux**
+
+Open the bash terminal in Positron and run the following commands.
+
+*macOS:*
+
+```bash
+# Step 1 — Install Homebrew (skip if already installed)
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+# Step 2 — Install Node.js LTS (includes npm)
+brew install node
+
+# Step 3 — Install Claude Code
+npm install -g @anthropic-ai/claude-code
+```
+
+*Linux (Ubuntu/Debian):*
+
+```bash
+# Step 1 — Install Node.js LTS via NodeSource
+curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
+# Step 2 — Install Claude Code
+npm install -g @anthropic-ai/claude-code
+```
+
+Once installed, users will need to login to their Anthropic account or access the models with an enterprise API key.  An Anthropic subscription is the most cost effective option and plans start at $25 a month and include hourly/daily/weekly limits.  API access is unlimited and billed by the token.  Provisioning this access should be completed prior to the first day of training.
+
+
+#### Github
+
+Consultants will need to access training materials through Github.  Github is a free online code repository that developers access to maintain their code.  It works like Track Changes for code development, every commit is tracked and users can look at their history to see every change and update they make over the lifecycle of a project and collaborate on projects.  I will develop a custom Github repository for the course and share it with the group.  The participants must create a Github account and configure it on their computers if they don't already have it.
+
+1. Create a free account at [https://github.com](https://github.com) if you do not already have one.
+
+2. Install Git on your computer.
+
+   *Windows (PowerShell):*
+   ```powershell
+   winget install -e --id Git.Git
+   ```
+
+   *macOS (bash):*
+   ```bash
+   brew install git
+   ```
+
+   *Linux (bash):*
+   ```bash
+   sudo apt-get install -y git
+   ```
+
+3. Configure Git with your name and the email address associated with your GitHub account. Run these in the Positron terminal:
+
+   ```bash
+   git config --global user.name "Your Name"
+   git config --global user.email "you@example.com"
+   ```
+
+4. Generate an SSH key so your computer can authenticate to GitHub without a password. Run the command below, replacing the email with the one on your GitHub account. Press **Enter** to accept the default file location, then choose a passphrase (or press Enter twice to leave it blank).
+
+   ```bash
+   ssh-keygen -t ed25519 -C "you@example.com"
+   ```
+
+5. Copy your public key to the clipboard.
+
+   *Windows (PowerShell):*
+   ```powershell
+   Get-Content "$env:USERPROFILE\.ssh\id_ed25519.pub" | Set-Clipboard
+   ```
+
+   *macOS (bash):*
+   ```bash
+   pbcopy < ~/.ssh/id_ed25519.pub
+   ```
+
+   *Linux (bash):*
+   ```bash
+   cat ~/.ssh/id_ed25519.pub
+   # Manually select and copy the output
+   ```
+
+6. Add the key to GitHub:
+   - Go to **github.com → Settings → SSH and GPG keys → New SSH key**
+   - Give it a descriptive title (e.g., "Positron laptop")
+   - Paste the key into the **Key** field and click **Add SSH key**
+
+7. Test the connection:
+
+   ```bash
+   ssh -T git@github.com
+   ```
+
+   You should see: `Hi <username>! You've successfully authenticated...`
+
+8. You will receive an invitation link to the course repository. Accept it, then clone the repository to your local machine using the SSH URL:
+
+   ```bash
+   git clone git@github.com:<repo-url-provided-by-instructor>.git
+   ```
