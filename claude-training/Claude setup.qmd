@@ -127,3 +127,37 @@ Consultants will need to access training materials through Github.  Github is a 
    ```bash
    git clone git@github.com:<repo-url-provided-by-instructor>.git
    ```
+
+#### CDISC RAG Server
+
+The course repository ships with a small search server that gives Claude direct access to CDISC controlled terminology — codelist definitions, valid values, and variable labels. Claude queries it whenever an exercise touches SDTM or ADaM variables, which is how it produces compliant code instead of guessing at terminology. It connects through MCP (Model Context Protocol), the standard Claude Code uses to talk to external tools.
+
+The server needs its own dependencies installed. These are deliberately excluded from Git, so a fresh clone will **not** have them and the server will fail to start until you run the install below. Do this once, after cloning, from the terminal in Positron.
+
+*Windows (PowerShell), macOS, and Linux (bash) — the same command works on all three:*
+
+```bash
+cd claude-training
+npm install --prefix rag
+```
+
+You should see something like `added 93 packages`. Verify the server connects:
+
+```bash
+claude mcp list
+```
+
+Look for `cdisc-rag: node rag/server.js - ✔ Connected`.
+
+**Troubleshooting.** If you see `✘ Failed to connect — CONNECTION_CLOSED`, the dependencies are missing or incomplete — re-run the `npm install --prefix rag` command above. To see the underlying error directly, run:
+
+```bash
+node rag/server.js
+```
+
+A message containing `ERR_MODULE_NOT_FOUND` confirms the dependencies are the problem. (This command starts the server and waits for input rather than returning to a prompt; press **Ctrl+C** to exit.)
+
+Two other things to check if the install did not fix it:
+
+- **Start Claude Code from the repository root.** The server is configured with a relative path, so launching `claude` from a different folder will not find it.
+- **Reconnect an already-running session.** If Claude Code was open while you ran the install, it is still holding the failed connection. Type `/mcp` inside Claude Code to reconnect, or restart it.
