@@ -24,3 +24,7 @@ __pycache__/
 # Training exercise outputs — student-generated files, not committed
 R/ADSL-Simulation.R
 data/adsl.rds
+
+# SAS run artifacts (regenerated on every submission)
+SAS/*.log
+SAS/*.lst
