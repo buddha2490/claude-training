@@ -14,7 +14,7 @@
 .vscode/.mcp.json
 
 # Claude Code local config
-.claude/
+.claude/settings.local.json
 
 # Python
 __pycache__/
