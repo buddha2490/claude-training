@@ -28,3 +28,6 @@ data/adsl.rds
 # SAS run artifacts (regenerated on every submission)
 SAS/*.log
 SAS/*.lst
+
+# Training setup documents
+claude-training/
